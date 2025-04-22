@@ -34,7 +34,7 @@ export function AutoFormSubmit({
   );
 }
 
-function AutoForm<SchemaType extends ZodObjectOrWrapped>({
+export function AutoForm<SchemaType extends ZodObjectOrWrapped>({
   formSchema,
   values: valuesProp,
   onValuesChange: onValuesChangeProp,
@@ -116,5 +116,3 @@ function AutoForm<SchemaType extends ZodObjectOrWrapped>({
     </div>
   );
 }
-
-export default AutoForm;
