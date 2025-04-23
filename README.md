@@ -4,6 +4,36 @@
 Forge is a modular toolkit of front-end components and helper utilities inspired by Greek mythology. It provides a collection of reusable UI elements and functions designed to speed up development across your projects. The toolkit is organized into several packages (e.g., auto-form, data-table, ui) that can be used individually or as a whole.
 
 
+## Using Forge
+
+You can install forge using npm or yarn. Here’s how to get started:
+
+```bash
+npm install @hephtal/forge
+```
+
+The css classes do not come bundled, instead you need to add to your tailwind config the following:`./node_modules/@hephtal/forge/dist/**/*.{js,ts,jsx,tsx}` to the content section of your config. This will tell tailwind in your project to also look at the classes in the forge package, and not just the classes in your project.
+
+```ts
+// tailwind.config.ts
+import type { Config } from 'tailwindcss';
+
+const config = {
+  ...
+  content: [
+    './src/**/*.{ts,tsx}',
+
+    // Add the path to your forge package
+    './node_modules/@hephtal/forge/dist/**/*.{js,ts,jsx,tsx}',
+  ],
+  ...
+} satisfies Config;
+
+export default config;
+
+```
+
+
 ## Publishing
 
 When you're ready to publish a new version of any forge package, follow these steps:
