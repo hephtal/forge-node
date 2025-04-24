@@ -1,4 +1,4 @@
-# forge
+# forge-node
 
 
 Forge is a modular toolkit of front-end components and helper utilities inspired by Greek mythology. It provides a collection of reusable UI elements and functions designed to speed up development across your projects. The toolkit is organized into several packages (e.g., auto-form, data-table, ui) that can be used individually or as a whole.
