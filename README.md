@@ -59,15 +59,11 @@ When prompted:
 - Enter your GitHub username.
 - For the password, paste your personal access token (`HT_FORGE_GITHUB_TOKEN`).
 
-### 3. Publish Your Package
+### 3. Publish the Package
 
-Once logged in, release and publish a new version of the package using
+Push changes to your main branch and a GitHub Action will automatically start to make a new release. This will make a new tag and start a MR, which once you merge, it should publish. 
 
-```bash
-npm run release
-```
-This will publish your package to GitHub’s Package Registry under the scope `@hephtal`, and update the version in the `package.json` file. Make sure to commit and push your changes to the repository.
-
+If you get `Bad Credentials` error, check the secret for `FORGE_GITHUB_TOKEN` in your repo is valid.
 
 ## Development
 
