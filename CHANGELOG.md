@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/hephtal/forge-node/compare/v1.0.2...v1.0.3) (2025-06-25)
+
+
+### Bug Fixes
+
+* release please and publish command ([0da602e](https://github.com/hephtal/forge-node/commit/0da602e4f50fbcdd5eac531d691d44ee6ac866ea))
+
 ## [1.0.2](https://github.com/hephtal/forge-node/compare/v1.0.1...v1.0.2) (2025-06-25)
 
 
