@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/hephtal/forge-node/compare/v1.0.1...v1.0.2) (2025-06-25)
+
+
+### Bug Fixes
+
+* add package-lock json ([461a80a](https://github.com/hephtal/forge-node/commit/461a80a6940ca4bf235dcdcf2b648e9f8f61bf2b))
+* autoform array and object bug ([0b92c27](https://github.com/hephtal/forge-node/commit/0b92c27645035f0cb135fe3a58230111523f3222))
+
 ## [1.0.1](https://github.com/hephtal/forge-node/compare/v1.0.0...v1.0.1) (2025-04-22)
 
 
