@@ -24,7 +24,7 @@ export default function AutoFormGraphConnector({
   fieldConfig?: FieldConfigItem;
   isRequired: boolean;
 }) {
-  const { control } = useFormContext();
+  const { control } = useFormContext() || form;
   const { field, fieldState } = useController({ name, control });
 
   // Initialise field value if undefined

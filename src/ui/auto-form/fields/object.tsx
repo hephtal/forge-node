@@ -45,7 +45,7 @@ export default function AutoFormObject<
   path?: string[];
   dependencies?: Dependency<z.infer<SchemaType>>[];
 }) {
-  const { watch } = useFormContext(); // Use useFormContext to access the watch function
+  const { watch } = useFormContext() || form;
 
   if (!schema) {
     return null;
@@ -162,6 +162,7 @@ export default function AutoFormObject<
             <AutoFormMultiSelect
               key={key}
               name={name}
+              fieldName={key}
               item={item}
               options={fieldConfigItem.options || []} // Pass in options from the fieldConfig if available
               form={form}
@@ -179,6 +180,7 @@ export default function AutoFormObject<
               item={item as unknown as z.ZodArray<any>}
               form={form}
               fieldConfig={fieldConfig?.[name] ?? {}}
+              fieldConfigItem={fieldConfigItem}
               path={[...path, name]}
             />
           );
@@ -227,6 +229,7 @@ export default function AutoFormObject<
                 <ParentElement key={`${key}.parent`}>
                   <InputComponent
                     name={name}
+                    fieldName={key}
                     item={item}
                     form={form}
                     zodInputProps={zodInputProps}

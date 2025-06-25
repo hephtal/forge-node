@@ -26,7 +26,7 @@ export default function AutoFormSelectAdd({
 }) {
   const [selectedValue, setSelectedValue] = useState<string>();
   const [values, setValues] = useState<string[]>(options);
-  const { control } = useFormContext();
+  const { control } = useFormContext() || form;
 
   const { field, fieldState } = useController({
     name,

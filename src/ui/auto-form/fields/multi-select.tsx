@@ -24,6 +24,7 @@ function isZodArrayWithStrings(
 
 export default function AutoFormMultiSelect({
   name,
+  fieldName,
   item,
   form,
   options,
@@ -31,15 +32,16 @@ export default function AutoFormMultiSelect({
   isRequired,
 }: {
   name: string;
+  fieldName: string;
   item: z.ZodTypeAny;
   form: ReturnType<typeof useForm>;
   options: { value: string; label: string; icon?: React.ComponentType }[];
   fieldConfig?: FieldConfigItem;
   isRequired: boolean;
 }) {
-  const { control } = useFormContext();
+  const { control } = useFormContext() || form;
   const { field, fieldState } = useController({
-    name,
+    name: fieldName,
     control,
   });
   const [selectedValues, setSelectedValues] = React.useState<string[]>([]);
@@ -59,6 +61,7 @@ export default function AutoFormMultiSelect({
       <AutoFormLabel label={title} isRequired={isRequired} />
       <FormControl>
         <MultiSelect
+          name={name}
           options={options}
           selectedValues={selectedValues}
           setSelectedValues={(values: string[]) => {

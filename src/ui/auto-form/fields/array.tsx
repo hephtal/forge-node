@@ -11,6 +11,9 @@ import * as z from 'zod';
 import { beautifyObjectName } from '../utils';
 import AutoFormObject from './object';
 import React from 'react';
+import {FieldConfigItem} from "../types";
+import AutoFormTooltip from "../common/tooltip";
+
 
 function isZodArray(
   item: z.ZodArray<any> | z.ZodDefault<any> | z.ZodOptional<any>,
@@ -40,12 +43,14 @@ export default function AutoFormArray({
   form,
   path = [],
   fieldConfig,
+  fieldConfigItem,
 }: {
   name: string;
   item: z.ZodArray<any> | z.ZodDefault<any> | z.ZodOptional<any>;
   form: ReturnType<typeof useForm<FormValues>>;
   path?: string[];
   fieldConfig?: any;
+  fieldConfigItem?: FieldConfigItem;
 }) {
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -69,6 +74,7 @@ export default function AutoFormArray({
         {title}
         {arrayLengthString}
       </AccordionTrigger>
+      <AutoFormTooltip fieldConfigItem={fieldConfigItem} />
       <AccordionContent className="px-2">
         {fields.map((_field, index) => {
           const key = _field.id;
@@ -109,7 +115,3 @@ export default function AutoFormArray({
     </AccordionItem>
   );
 }
-
-
-
-// https://www.amazon.co.uk/dp/B0F2T4JFVG?psc=1&linkCode=sl1&tag=vivianfrank-21&linkId=d71c0036b3da825d23e528569058e117&language=en_GB&ref_=as_li_ss_tl
