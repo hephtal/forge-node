@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/hephtal/forge-node/compare/v1.0.3...v1.0.4) (2025-06-25)
+
+
+### Bug Fixes
+
+* add release please manifest json ([87a07ce](https://github.com/hephtal/forge-node/commit/87a07ce87695416946f8c6e247abef4e599d82a5))
+
 ## [1.0.3](https://github.com/hephtal/forge-node/compare/v1.0.2...v1.0.3) (2025-06-25)
 
 
