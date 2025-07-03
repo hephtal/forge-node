@@ -1,6 +1,6 @@
 {
   "name": "@hephtal/forge",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "HephTal frontend node package to store any heavily reused components across projects",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

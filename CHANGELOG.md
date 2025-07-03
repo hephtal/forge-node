@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/hephtal/forge-node/compare/v1.0.4...v1.1.0) (2025-07-03)
+
+
+### Features
+
+* added button-div ([8edec88](https://github.com/hephtal/forge-node/commit/8edec8870fd479f043c0035a3c63c4930a614e92))
+
 ## [1.0.4](https://github.com/hephtal/forge-node/compare/v1.0.3...v1.0.4) (2025-06-25)
 
 
