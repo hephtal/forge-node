@@ -112,7 +112,7 @@ export function useDataTable<
     };
   }, [filterFields]);
 
-  // Initial column filters
+  // Initial filters for columns
   const initialColumnFilters: ColumnFiltersState = React.useMemo(() => {
     return Object.entries(filters).reduce<ColumnFiltersState>(
       (acc, [key, value]) => {
