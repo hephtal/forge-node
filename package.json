@@ -1,6 +1,6 @@
 {
   "name": "@hephtal/forge",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "HephTal frontend node package to store any heavily reused components across projects",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -14,7 +14,7 @@
     "prepublishOnly": "npm run build",
     "release": "release-please release-pr --repo-url=https://github.com/hephtal/forge-node",
     "publish:gh": "release-please github-release --repo-url=https://github.com/hephtal/forge-node",
-    "publish:npm": "npm publish --access public"
+    "publish:npm": "npm publish --access public --registry=https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",
