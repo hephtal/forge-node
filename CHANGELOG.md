@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/hephtal/forge-node/compare/v1.1.0...v1.2.0) (2025-11-05)
+
+
+### Features
+
+* add ability to pass in initial state into data table, to allow for setting default column visibility ([445b892](https://github.com/hephtal/forge-node/commit/445b892d922204bdfaeaa19e3541e029f795b7fe))
+* data table initial state ([697b75f](https://github.com/hephtal/forge-node/commit/697b75fa96f7976879012bdc081eeba11867efdd))
+
 ## [1.1.0](https://github.com/hephtal/forge-node/compare/v1.0.4...v1.1.0) (2025-07-03)
 
 
