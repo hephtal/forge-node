@@ -1,4 +1,4 @@
-name: Publish to npm
+name: Create release and tag to gh
 
 on:
   push:
@@ -20,13 +20,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          registry-url: https://registry.npmjs.org/
+          registry-url: https://npm.pkg.github.com
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Publish to npm
-        run: npm run publish:npm
+      - name: Publish to github
+        run: npm run release_tag:gh
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
