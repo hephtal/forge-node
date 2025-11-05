@@ -13,9 +13,9 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  type PaginationState,
+  type PaginationState, RowSelectionState,
   type SortingState,
-  type TableOptions,
+  type TableOptions, TableState,
   useReactTable,
   type VisibilityState,
 } from '@tanstack/react-table';
@@ -66,6 +66,8 @@ interface UseDataTableProps<
   ) => Promise<[TData[], number, number]>;
 
   unfilteredData: TData[];
+
+  initialState?: Partial<TableState>;
 }
 
 export function useDataTable<
@@ -80,6 +82,7 @@ export function useDataTable<
   },
   getFilteredData,
   unfilteredData,
+  initialState,
   ...props
 }: UseDataTableProps<TData, TSearchParams>) {
   const filters = React.useMemo(() => {
@@ -140,9 +143,11 @@ export function useDataTable<
 
   const [meta, setMeta] = useState<DataTableMeta>({ totalCount: 0 });
 
-  const [rowSelection, setRowSelection] = React.useState({});
+  const [rowSelection, setRowSelection] = React.useState<RowSelectionState>(
+    initialState?.rowSelection ?? {},
+  );
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
+    React.useState<VisibilityState>(initialState?.columnVisibility ?? {});
   const [columnFilters, setColumnFilters] =
     React.useState<ColumnFiltersState>(initialColumnFilters);
 
