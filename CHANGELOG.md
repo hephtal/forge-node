@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/hephtal/forge-node/compare/v1.2.0...v1.3.0) (2025-11-05)
+
+
+### Features
+
+* make an action that actually publishes to github, instead of just making new releases ([#9](https://github.com/hephtal/forge-node/issues/9)) ([16fa86d](https://github.com/hephtal/forge-node/commit/16fa86d8680d1df04d92181086aa24e6bcb072e3))
+
 ## [1.2.0](https://github.com/hephtal/forge-node/compare/v1.1.0...v1.2.0) (2025-11-05)
 
 
