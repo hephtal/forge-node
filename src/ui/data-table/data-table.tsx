@@ -3,11 +3,8 @@
 import { flexRender, type Table as TanstackTable } from '@tanstack/react-table';
 import * as React from 'react';
 
-import { DataTablePagination } from './data-table-pagination';
-import {
-  getCommonPinningClasses,
-  getCommonPinningStyles,
-} from './lib/data-table';
+import type { VariantProps } from 'class-variance-authority';
+import { cn } from '../../lib/utils';
 import {
   Table,
   TableBody,
@@ -16,7 +13,12 @@ import {
   TableHeader,
   TableRow,
 } from '../table';
-import {cn} from "../../lib/utils";
+import { DataTablePagination } from './data-table-pagination';
+import {
+  getCommonPinningClasses,
+  getCommonPinningStyles,
+} from './lib/data-table';
+import { rowVariants } from './row-variants';
 
 interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -38,14 +40,23 @@ interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
    * @type (row: TData) => void
    * @default () => {}
    */
-
   onRowClick?: (row: TData) => void;
+
+  /**
+   * Variant props for the table rows.
+   * @type VariantProps<typeof rowVariants>
+   * @default { variant: 'default' }
+   */
+  rowVariant?: VariantProps<typeof rowVariants>;
 }
 
 export function DataTable<TData>({
   table,
   floatingBar = null,
   onRowClick = () => {},
+  rowVariant = {
+    variant: 'default',
+  },
   children,
   className,
   ...props
@@ -93,6 +104,9 @@ export function DataTable<TData>({
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
                   onClick={() => onRowClick(row.original)}
+                  className={cn(
+                    rowVariants({ variant: rowVariant?.variant, className }),
+                  )}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
