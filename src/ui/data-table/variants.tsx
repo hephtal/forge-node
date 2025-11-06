@@ -21,7 +21,7 @@ export const cellVariants = cva(
     variants: {
       variant: {
         default: 'bg-card',
-        clickable: '',
+        clickable: 'hover:bg-accent active:bg-accent-foreground',
       },
     },
     defaultVariants: {
