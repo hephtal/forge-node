@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.3](https://github.com/hephtal/forge-node/compare/v1.5.2...v1.5.3) (2025-11-06)
+
+
+### Bug Fixes
+
+* make all of the row change colour together ([ecc4d15](https://github.com/hephtal/forge-node/commit/ecc4d1534247793eb7115243c06976e451d66b5f))
+
 ## [1.5.2](https://github.com/hephtal/forge-node/compare/v1.5.1...v1.5.2) (2025-11-06)
 
 
