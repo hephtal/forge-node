@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/hephtal/forge-node/compare/v1.4.1...v1.5.0) (2025-11-06)
+
+
+### Features
+
+* add rowVariant to data table and add prettier to package ([344a22c](https://github.com/hephtal/forge-node/commit/344a22c50bf3b170b213640456050b18d4ad9022))
+
 ## [1.4.1](https://github.com/hephtal/forge-node/compare/v1.4.0...v1.4.1) (2025-11-06)
 
 
