@@ -32,11 +32,20 @@ interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
    * @example floatingBar={<TasksTableFloatingBar table={table} />}
    */
   floatingBar?: React.ReactNode | null;
+
+  /**
+   * Callback function when a row is clicked.
+   * @type (row: TData) => void
+   * @default () => {}
+   */
+
+  onRowClick?: (row: TData) => void;
 }
 
 export function DataTable<TData>({
   table,
   floatingBar = null,
+  onRowClick = () => {},
   children,
   className,
   ...props
@@ -48,6 +57,7 @@ export function DataTable<TData>({
     >
       {children}
       <div className="overflow-hidden rounded-lg border">
+        Hello
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -83,6 +93,7 @@ export function DataTable<TData>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
+                  onClick={() => onRowClick(row.original)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell

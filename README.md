@@ -38,7 +38,7 @@ export default config;
 
 When you're ready to publish a new version of any forge package, follow these steps:
 
-### 1. First Check it Builds
+
 
 Make sure your package builds correctly by running:
 
@@ -47,23 +47,7 @@ npm run build
 ```
 This will compile your TypeScript code and ensure everything is ready for publishing.
 
-### 2. Login to the GitHub Package Registry
-
-Run the following command to log in with your GitHub credentials:
-
-```bash
-npm login --scope=@hephtal
-```
-When prompted:
-
-- Enter your GitHub username.
-- For the password, paste your personal access token (`HT_FORGE_GITHUB_TOKEN`).
-
-### 3. Publish the Package
-
-MAKE SURE YOU BUMP THE VERSION NUMBER IN `package.json` BEFORE PUBLISHING!
-
-Push changes to your main branch and a GitHub Action will automatically start to make a new release. This will make a new tag and start a MR, which once you merge, it should publish. 
+Push changes to your main branch and a GitHub Action will automatically start to make a new release. This will make a new tag and start a MR, which once you merge, it should publish, to both npm publically, and to your private GitHub Package Registry.
 
 If you get `Bad Credentials` error, check the secret for `FORGE_GITHUB_TOKEN` in your repo is valid.
 
