@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/hephtal/forge-node/compare/v1.5.0...v1.5.1) (2025-11-06)
+
+
+### Bug Fixes
+
+* add cellVariants and fix bg not being shown through row variants ([6da7c4c](https://github.com/hephtal/forge-node/commit/6da7c4c3036b08fe5d0c4ce264b0965ca4cfa2c6))
+
 ## [1.5.0](https://github.com/hephtal/forge-node/compare/v1.4.1...v1.5.0) (2025-11-06)
 
 
