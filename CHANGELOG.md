@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/hephtal/forge-node/compare/v1.4.0...v1.4.1) (2025-11-06)
+
+
+### Bug Fixes
+
+* left over debug message ([fca95e5](https://github.com/hephtal/forge-node/commit/fca95e528c62318f721d37f02aaf76f7257ff87d))
+
 ## [1.4.0](https://github.com/hephtal/forge-node/compare/v1.3.0...v1.4.0) (2025-11-06)
 
 
