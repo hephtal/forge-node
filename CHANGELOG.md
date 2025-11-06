@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/hephtal/forge-node/compare/v1.3.0...v1.4.0) (2025-11-06)
+
+
+### Features
+
+* add a onRowClick input for the datatable ([#11](https://github.com/hephtal/forge-node/issues/11)) ([52fc7fb](https://github.com/hephtal/forge-node/commit/52fc7fbf564dacb075fedea35f2516877643426b))
+
 ## [1.3.0](https://github.com/hephtal/forge-node/compare/v1.2.0...v1.3.0) (2025-11-05)
 
 
