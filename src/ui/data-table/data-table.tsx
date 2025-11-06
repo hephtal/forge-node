@@ -14,13 +14,12 @@ import {
   TableRow,
 } from '../table';
 import { DataTablePagination } from './data-table-pagination';
-import {
-  getCommonPinningClasses,
-  getCommonPinningStyles,
-} from './lib/data-table';
-import { rowVariants } from './row-variants';
+import { getCommonPinningClasses, getCommonPinningStyles } from './lib';
+import { cellVariants, rowVariants } from './variants';
 
-interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
+interface DataTableProps<TData>
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof rowVariants> {
   /**
    * The table instance returned from useDataTable hook with pagination, sorting, filtering, etc.
    * @type TanstackTable<TData>
@@ -41,22 +40,13 @@ interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
    * @default () => {}
    */
   onRowClick?: (row: TData) => void;
-
-  /**
-   * Variant props for the table rows.
-   * @type VariantProps<typeof rowVariants>
-   * @default { variant: 'default' }
-   */
-  rowVariant?: VariantProps<typeof rowVariants>;
 }
 
 export function DataTable<TData>({
   table,
   floatingBar = null,
   onRowClick = () => {},
-  rowVariant = {
-    variant: 'default',
-  },
+  variant = 'default',
   children,
   className,
   ...props
@@ -104,9 +94,7 @@ export function DataTable<TData>({
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
                   onClick={() => onRowClick(row.original)}
-                  className={cn(
-                    rowVariants({ variant: rowVariant?.variant, className }),
-                  )}
+                  className={cn(rowVariants({ variant }))}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
@@ -116,7 +104,7 @@ export function DataTable<TData>({
                       }}
                       className={cn(
                         getCommonPinningClasses({ column: cell.column }),
-                        'max-w-[432px] text-ellipsis bg-card',
+                        cellVariants({ variant }),
                       )}
                     >
                       {flexRender(

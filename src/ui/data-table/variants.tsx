@@ -14,3 +14,18 @@ export const rowVariants = cva(
     },
   },
 );
+
+export const cellVariants = cva(
+  'max-w-[432px] text-ellipsis',
+  {
+    variants: {
+      variant: {
+        default: 'bg-card',
+        clickable: '',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  },
+);
