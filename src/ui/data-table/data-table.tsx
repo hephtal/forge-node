@@ -72,7 +72,7 @@ export function DataTable<TData>({
                       }}
                       className={cn(
                         getCommonPinningClasses({ column: header.column }),
-                        '',
+                        'bg-background',
                       )}
                     >
                       {header.isPlaceholder

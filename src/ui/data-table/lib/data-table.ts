@@ -47,7 +47,6 @@ export function getCommonPinningClasses<TData>({
 
   let classes = '';
   classes += isPinned ? 'sticky ' : 'relative ';
-  classes += 'bg-background ';
   classes += isPinned ? 'z-10 ' : 'z-0 ';
 
   if (withBorder) {
