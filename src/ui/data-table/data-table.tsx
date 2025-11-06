@@ -57,7 +57,6 @@ export function DataTable<TData>({
     >
       {children}
       <div className="overflow-hidden rounded-lg border">
-        Hello
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
