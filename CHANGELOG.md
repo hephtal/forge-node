@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.2](https://github.com/hephtal/forge-node/compare/v1.5.1...v1.5.2) (2025-11-06)
+
+
+### Bug Fixes
+
+* add hover and active to cellVariants ([55525ca](https://github.com/hephtal/forge-node/commit/55525ca3ce27c64d57a0a2459982342d3cc67729))
+
 ## [1.5.1](https://github.com/hephtal/forge-node/compare/v1.5.0...v1.5.1) (2025-11-06)
 
 
