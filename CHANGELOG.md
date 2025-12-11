@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.4](https://github.com/hephtal/forge-node/compare/v1.5.3...v1.5.4) (2025-12-11)
+
+
+### Bug Fixes
+
+* make tooltip work for new version of tailwind https://github.com/shadcn-ui/ui/issues/4616#issuecomment-2661591636 ([#18](https://github.com/hephtal/forge-node/issues/18)) ([af7fc0a](https://github.com/hephtal/forge-node/commit/af7fc0ad9c1a5456576e973b2ce27e75bf772816))
+
 ## [1.5.3](https://github.com/hephtal/forge-node/compare/v1.5.2...v1.5.3) (2025-11-06)
 
 
