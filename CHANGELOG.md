@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.0](https://github.com/hephtal/forge-node/compare/v1.5.4...v1.6.0) (2026-04-20)
+
+
+### Features
+
+* add column pinning ([#20](https://github.com/hephtal/forge-node/issues/20)) ([19adf2f](https://github.com/hephtal/forge-node/commit/19adf2fd5aed2d75ff1c380a4e6ba479b7377056))
+* column pinning ([#21](https://github.com/hephtal/forge-node/issues/21)) ([1563771](https://github.com/hephtal/forge-node/commit/1563771db20d5cd90fac676d969c17e0b0d372b2))
+
 ## [1.5.4](https://github.com/hephtal/forge-node/compare/v1.5.3...v1.5.4) (2025-12-11)
 
 
