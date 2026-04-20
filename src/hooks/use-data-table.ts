@@ -22,6 +22,7 @@ import {
 import * as React from 'react';
 import { useState } from 'react';
 import { z } from 'zod';
+import { ColumnPinningState } from '@tanstack/table-core/src/features/ColumnPinning';
 
 interface UseDataTableProps<
   TData,
@@ -150,6 +151,9 @@ export function useDataTable<
     React.useState<VisibilityState>(initialState?.columnVisibility ?? {});
   const [columnFilters, setColumnFilters] =
     React.useState<ColumnFiltersState>(initialColumnFilters);
+  const [columnPinning, setColumnPinning] =
+    React.useState<ColumnPinningState>(initialState?.columnPinning ?? {});
+
 
   // Handle server-side pagination
   const [{ pageIndex, pageSize }, setPagination] =
@@ -219,6 +223,7 @@ export function useDataTable<
       columnVisibility,
       rowSelection,
       columnFilters,
+      columnPinning,
     },
     meta,
     enableRowSelection: true,
@@ -227,6 +232,7 @@ export function useDataTable<
     onSortingChange: setSortingState,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
+    onColumnPinningChange: setColumnPinning,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
