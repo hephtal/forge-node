@@ -8,7 +8,7 @@ import type { Table } from '@tanstack/react-table';
 import { Button } from '../button';
 import { DataTableFacetedFilter } from './data-table-faceted-filter';
 import { DataTableViewOptions } from './data-table-view-options';
-import { DataTableFilterField } from './types';
+import { DataTableFilterField, DataTableMeta } from './types';
 import { Input } from '../input';
 import {cn} from "../../lib/utils";
 
@@ -66,16 +66,25 @@ export function DataTableToolbar<TData>({
               ),
           )}
         {filterableColumns.length > 0 &&
-          filterableColumns.map((column) => {
+          filterableColumns.map((filterableColumn) => {
+            const columnIdentifier = filterableColumn.value
+              ? String(filterableColumn.value)
+              : '';
+            const tableColumn = table.getColumn(columnIdentifier);
+            const tableMetadata = table.options.meta as
+              | DataTableMeta
+              | undefined;
+
             return (
-              table.getColumn(column.value ? String(column.value) : '') && (
+              tableColumn && (
                 <DataTableFacetedFilter
-                  key={String(column.value)}
-                  column={table.getColumn(
-                    column.value ? String(column.value) : '',
-                  )}
-                  title={column.label}
-                  options={column.options ?? []}
+                  key={String(filterableColumn.value)}
+                  column={tableColumn}
+                  title={filterableColumn.label}
+                  options={filterableColumn.options ?? []}
+                  optionCounts={
+                    tableMetadata?.facetedOptionCounts?.[columnIdentifier]
+                  }
                 />
               )
             );

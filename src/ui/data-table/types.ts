@@ -34,8 +34,14 @@ export interface DataTableFilterOption<TData> {
   isMulti?: boolean;
 }
 
+export type DataTableFacetedOptionCounts = Record<
+  string,
+  Record<string, number>
+>;
+
 export interface DataTableMeta extends TableMeta<any> {
   totalCount?: number;
+  facetedOptionCounts?: DataTableFacetedOptionCounts;
 }
 
 export const searchParamsSchema = z.object({

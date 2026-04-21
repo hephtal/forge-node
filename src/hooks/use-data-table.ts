@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  DataTableFacetedOptionCounts,
   DataTableFilterField,
   DataTableMeta,
   searchParamsSchema,
@@ -116,6 +117,51 @@ export function useDataTable<
     };
   }, [filterFields]);
 
+  const facetedOptionCounts =
+    React.useMemo<DataTableFacetedOptionCounts>(() => {
+      const counts: DataTableFacetedOptionCounts = {};
+
+      for (const filterableColumn of filterableColumns) {
+        const columnKey = String(filterableColumn.value);
+        const availableOptionValues = new Set(
+          filterableColumn.options?.map((option) => option.value) ?? [],
+        );
+        const columnCounts: Record<string, number> = {};
+
+        for (const optionValue of availableOptionValues) {
+          columnCounts[optionValue] = 0;
+        }
+
+        for (const dataRow of unfilteredData) {
+          const rowValue = (dataRow as Record<string, unknown>)[columnKey];
+
+          if (rowValue === undefined || rowValue === null) {
+            continue;
+          }
+
+          const rowValues = Array.isArray(rowValue) ? rowValue : [rowValue];
+          const matchedOptionValues = new Set<string>();
+
+          for (const rowValueItem of rowValues) {
+            const optionValue = String(rowValueItem);
+
+            if (availableOptionValues.has(optionValue)) {
+              matchedOptionValues.add(optionValue);
+            }
+          }
+
+          for (const matchedOptionValue of matchedOptionValues) {
+            columnCounts[matchedOptionValue] =
+              (columnCounts[matchedOptionValue] ?? 0) + 1;
+          }
+        }
+
+        counts[columnKey] = columnCounts;
+      }
+
+      return counts;
+    }, [filterableColumns, unfilteredData]);
+
   // Initial filters for columns
   const initialColumnFilters: ColumnFiltersState = React.useMemo(() => {
     return Object.entries(filters).reduce<ColumnFiltersState>(
@@ -142,7 +188,15 @@ export function useDataTable<
   const [data, setData] = useState<TData[]>([]);
   const [pageCount, setPageCount] = useState<number>(0);
 
-  const [meta, setMeta] = useState<DataTableMeta>({ totalCount: 0 });
+  const [metadata, setMetadata] = useState<DataTableMeta>({ totalCount: 0 });
+
+  const tableMetadata = React.useMemo<DataTableMeta>(
+    () => ({
+      ...metadata,
+      facetedOptionCounts,
+    }),
+    [facetedOptionCounts, metadata],
+  );
 
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>(
     initialState?.rowSelection ?? {},
@@ -197,7 +251,7 @@ export function useDataTable<
 
         setData(newData);
         setPageCount(newPageCount);
-        setMeta({ totalCount: newTotalCount });
+        setMetadata({ totalCount: newTotalCount });
       } catch (error) {
         console.error('Error fetching filtered data:', error);
       }
@@ -225,7 +279,7 @@ export function useDataTable<
       columnFilters,
       columnPinning,
     },
-    meta,
+    meta: tableMetadata,
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     onPaginationChange: setPagination,

@@ -21,7 +21,7 @@ import {
 import { useDebounce } from '../../../hooks/use-debounce';
 
 import { dataTableConfig } from '../config';
-import { DataTableFilterOption } from '../types';
+import { DataTableFilterOption, DataTableMeta } from '../types';
 import { DataTableAdvancedFacetedFilter } from './data-table-advanced-faceted-filter';
 import {cn} from "../../../lib/utils";
 
@@ -49,6 +49,7 @@ export function DataTableFilterItem<TData>({
   const column = table.getColumn(
     selectedOption.value ? String(selectedOption.value) : '',
   );
+  const tableMetadata = table.options.meta as DataTableMeta | undefined;
 
   const selectedValues = new Set(
     selectedOptions.find((item) => item.value === column?.id)?.filterValues,
@@ -205,6 +206,7 @@ export function DataTableFilterItem<TData>({
               title={selectedOption.label}
               options={selectedOption.options}
               selectedValues={selectedValues}
+              optionCounts={tableMetadata?.facetedOptionCounts?.[column.id]}
               setSelectedOptions={setSelectedOptions}
             />
           )
