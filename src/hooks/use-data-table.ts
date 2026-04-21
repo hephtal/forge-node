@@ -25,6 +25,53 @@ import { useState } from 'react';
 import { z } from 'zod';
 import { ColumnPinningState } from '@tanstack/table-core/src/features/ColumnPinning';
 
+function getFacetedOptionCounts<TData>(
+  dataRows: TData[],
+  filterableColumns: DataTableFilterField<TData>[],
+): DataTableFacetedOptionCounts {
+  const counts: DataTableFacetedOptionCounts = {};
+
+  for (const filterableColumn of filterableColumns) {
+    const columnKey = String(filterableColumn.value);
+    const availableOptionValues = new Set(
+      filterableColumn.options?.map((option) => option.value) ?? [],
+    );
+    const columnCounts: Record<string, number> = {};
+
+    for (const optionValue of availableOptionValues) {
+      columnCounts[optionValue] = 0;
+    }
+
+    for (const dataRow of dataRows) {
+      const rowValue = (dataRow as Record<string, unknown>)[columnKey];
+
+      if (rowValue === undefined || rowValue === null) {
+        continue;
+      }
+
+      const rowValues = Array.isArray(rowValue) ? rowValue : [rowValue];
+      const matchedOptionValues = new Set<string>();
+
+      for (const rowValueItem of rowValues) {
+        const optionValue = String(rowValueItem);
+
+        if (availableOptionValues.has(optionValue)) {
+          matchedOptionValues.add(optionValue);
+        }
+      }
+
+      for (const matchedOptionValue of matchedOptionValues) {
+        columnCounts[matchedOptionValue] =
+          (columnCounts[matchedOptionValue] ?? 0) + 1;
+      }
+    }
+
+    counts[columnKey] = columnCounts;
+  }
+
+  return counts;
+}
+
 interface UseDataTableProps<
   TData,
   TSearchParams extends typeof searchParamsSchema,
@@ -117,50 +164,11 @@ export function useDataTable<
     };
   }, [filterFields]);
 
-  const facetedOptionCounts =
-    React.useMemo<DataTableFacetedOptionCounts>(() => {
-      const counts: DataTableFacetedOptionCounts = {};
-
-      for (const filterableColumn of filterableColumns) {
-        const columnKey = String(filterableColumn.value);
-        const availableOptionValues = new Set(
-          filterableColumn.options?.map((option) => option.value) ?? [],
-        );
-        const columnCounts: Record<string, number> = {};
-
-        for (const optionValue of availableOptionValues) {
-          columnCounts[optionValue] = 0;
-        }
-
-        for (const dataRow of unfilteredData) {
-          const rowValue = (dataRow as Record<string, unknown>)[columnKey];
-
-          if (rowValue === undefined || rowValue === null) {
-            continue;
-          }
-
-          const rowValues = Array.isArray(rowValue) ? rowValue : [rowValue];
-          const matchedOptionValues = new Set<string>();
-
-          for (const rowValueItem of rowValues) {
-            const optionValue = String(rowValueItem);
-
-            if (availableOptionValues.has(optionValue)) {
-              matchedOptionValues.add(optionValue);
-            }
-          }
-
-          for (const matchedOptionValue of matchedOptionValues) {
-            columnCounts[matchedOptionValue] =
-              (columnCounts[matchedOptionValue] ?? 0) + 1;
-          }
-        }
-
-        counts[columnKey] = columnCounts;
-      }
-
-      return counts;
-    }, [filterableColumns, unfilteredData]);
+  const countableFilterableColumns = React.useMemo(() => {
+    return filterableColumns.filter((filterableColumn) =>
+      filterableColumn.options?.some((option) => option.withCount),
+    );
+  }, [filterableColumns]);
 
   // Initial filters for columns
   const initialColumnFilters: ColumnFiltersState = React.useMemo(() => {
@@ -188,15 +196,10 @@ export function useDataTable<
   const [data, setData] = useState<TData[]>([]);
   const [pageCount, setPageCount] = useState<number>(0);
 
-  const [metadata, setMetadata] = useState<DataTableMeta>({ totalCount: 0 });
-
-  const tableMetadata = React.useMemo<DataTableMeta>(
-    () => ({
-      ...metadata,
-      facetedOptionCounts,
-    }),
-    [facetedOptionCounts, metadata],
-  );
+  const [metadata, setMetadata] = useState<DataTableMeta>({
+    totalCount: 0,
+    facetedOptionCounts: {},
+  });
 
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>(
     initialState?.rowSelection ?? {},
@@ -251,7 +254,38 @@ export function useDataTable<
 
         setData(newData);
         setPageCount(newPageCount);
-        setMetadata({ totalCount: newTotalCount });
+        setMetadata((currentMetadata) => ({
+          ...currentMetadata,
+          totalCount: newTotalCount,
+        }));
+
+        const countQueryPageSize = Math.max(unfilteredData.length, 1);
+        const countEntries = await Promise.all(
+          countableFilterableColumns.map(async (filterableColumn) => {
+            const columnKey = String(filterableColumn.value);
+            const countState = {
+              ...updatedState,
+              page: 1,
+              per_page: countQueryPageSize,
+            };
+
+            delete (countState as Record<string, unknown>)[columnKey];
+
+            const [countData] = await getFilteredData(
+              unfilteredData,
+              countState,
+            );
+            const facetedCounts = getFacetedOptionCounts(countData, [
+              filterableColumn,
+            ]);
+
+            return [columnKey, facetedCounts[columnKey] ?? {}] as const;
+          }),
+        );
+        const facetedOptionCounts =
+          Object.fromEntries(countEntries) as DataTableFacetedOptionCounts;
+
+        setMetadata({ totalCount: newTotalCount, facetedOptionCounts });
       } catch (error) {
         console.error('Error fetching filtered data:', error);
       }
@@ -263,6 +297,7 @@ export function useDataTable<
     pageSize,
     sortingState,
     columnFilters,
+    countableFilterableColumns,
     getFilteredData,
     unfilteredData,
   ]);
@@ -279,7 +314,7 @@ export function useDataTable<
       columnFilters,
       columnPinning,
     },
-    meta: tableMetadata,
+    meta: metadata,
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     onPaginationChange: setPagination,
