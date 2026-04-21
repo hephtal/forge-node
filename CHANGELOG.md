@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/hephtal/forge-node/compare/v1.6.0...v1.6.1) (2026-04-21)
+
+
+### Bug Fixes
+
+* data table backgroun bug ([#23](https://github.com/hephtal/forge-node/issues/23)) ([d028a4f](https://github.com/hephtal/forge-node/commit/d028a4f523b83abc57a42b12ca42c513c956b9d8))
+
 ## [1.6.0](https://github.com/hephtal/forge-node/compare/v1.5.4...v1.6.0) (2026-04-20)
 
 
