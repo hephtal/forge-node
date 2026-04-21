@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.4](https://github.com/hephtal/forge-node/compare/v1.6.3...v1.6.4) (2026-04-21)
+
+
+### Bug Fixes
+
+* updated table filter count ([#29](https://github.com/hephtal/forge-node/issues/29)) ([5c32620](https://github.com/hephtal/forge-node/commit/5c3262090ee1d2bf8bb98506a3e81a4ff9f94449))
+
 ## [1.6.3](https://github.com/hephtal/forge-node/compare/v1.6.2...v1.6.3) (2026-04-21)
 
 
