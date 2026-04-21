@@ -34,10 +34,25 @@ export interface DataTableFilterOption<TData> {
   isMulti?: boolean;
 }
 
+export interface DataTableFilterExpression<TData> {
+  filterKey: string;
+  expression: (item: TData) => boolean;
+}
+
 export type DataTableFacetedOptionCounts = Record<
   string,
   Record<string, number>
 >;
+
+export class DataTableFilterResult<TData> {
+  constructor(
+    public data: TData[],
+    public pageCount: number,
+    public totalCount: number,
+    public filteredData: TData[],
+    public filteredDataByExcludedFilterKey: Record<string, TData[]>,
+  ) {}
+}
 
 export interface DataTableMeta extends TableMeta<any> {
   totalCount?: number;
