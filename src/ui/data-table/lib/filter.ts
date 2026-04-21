@@ -1,23 +1,38 @@
-// Define the common filterObjects function
+import { DataTableFilterExpression, DataTableFilterResult } from '../types';
+
 type SortOrder = 'asc' | 'desc';
+
+function itemMatchesExpressions<T>(
+  item: T,
+  expressions: DataTableFilterExpression<T>[],
+  operator: 'and' | 'or' | undefined,
+) {
+  if (expressions.length === 0) {
+    return true;
+  }
+
+  return operator === 'or'
+    ? expressions.some((filterExpression) => filterExpression.expression(item))
+    : expressions.every((filterExpression) => filterExpression.expression(item));
+}
 
 /**
  * Helper function to filter, sort, and paginate a list of objects.
  * @param items - List of items to be processed.
- * @param expressions - List of filter expressions to apply to each item.
- * @param sort - Sorting parameter in the format 'column.order' (e.g., 'name.asc').
+ * @param expressions - List of keyed filter expressions to apply to each item.
+ * @param sort - Sorting parameter in the format 'column.order'.
  * @param page - Current page number for pagination.
  * @param perPage - Number of items per page.
  * @param operator - Filter operator: 'and' or 'or' to combine the expressions.
  */
 export function filterObjects<T>(
   items: T[],
-  expressions: ((item: T) => boolean)[],
+  expressions: DataTableFilterExpression<T>[],
   sort: string | undefined,
   page: number,
   perPage: number,
   operator: 'and' | 'or' | undefined,
-): [T[], number, number] {
+): DataTableFilterResult<T> {
   // Pagination: calculate offset based on page and per_page
   const offset = (page - 1) * perPage;
 
@@ -27,12 +42,10 @@ export function filterObjects<T>(
     'asc',
   ]) as [keyof T | undefined, SortOrder | undefined];
 
-  // Apply the filters based on the operator (AND/OR)
-  const filteredItems = items.filter((item) => {
-    return operator === 'or'
-      ? expressions.some((expr) => expr(item))
-      : expressions.every((expr) => expr(item));
-  });
+  // Apply the filters based on the operator.
+  const filteredItems = items.filter((item) =>
+    itemMatchesExpressions(item, expressions, operator),
+  );
 
   // Sorting
   const sortedItems = column
@@ -56,6 +69,25 @@ export function filterObjects<T>(
   const filteredTotalCount = filteredItems.length;
   const pageCount = Math.ceil(filteredTotalCount / perPage);
   const unfilteredTotalCount = sortedItems.length;
+  const filteredItemsByExcludedFilterKey = expressions.reduce<
+    Record<string, T[]>
+  >((filteredItemsByKey, filterExpression) => {
+    const otherExpressions = expressions.filter(
+      (expression) => expression.filterKey !== filterExpression.filterKey,
+    );
 
-  return [paginatedItems, pageCount, unfilteredTotalCount];
+    filteredItemsByKey[filterExpression.filterKey] = items.filter((item) =>
+      itemMatchesExpressions(item, otherExpressions, operator),
+    );
+
+    return filteredItemsByKey;
+  }, {});
+
+  return new DataTableFilterResult(
+    paginatedItems,
+    pageCount,
+    unfilteredTotalCount,
+    sortedItems,
+    filteredItemsByExcludedFilterKey,
+  );
 }
