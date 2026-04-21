@@ -48,6 +48,7 @@ export function getCommonPinningClasses<TData>({
   let classes = '';
   classes += isPinned ? 'sticky ' : 'relative ';
   classes += isPinned ? 'z-10 ' : 'z-0 ';
+  classes += isPinned ? 'bg-card ' : '';
 
   if (withBorder) {
     if (isLastLeftPinnedColumn) {
