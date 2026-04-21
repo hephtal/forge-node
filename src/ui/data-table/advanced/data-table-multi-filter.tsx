@@ -10,7 +10,7 @@ import {
   dataTableConfig,
 } from '../config';
 import { DataTableFacetedFilter } from '../data-table-faceted-filter';
-import { DataTableFilterOption } from '../types';
+import { DataTableFilterOption, DataTableMeta } from '../types';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -141,6 +141,11 @@ export function MultiFilterRow<TData>({
   const [selectedOption, setSelectedOption] = React.useState<
     DataTableFilterOption<TData> | undefined
   >(options[0]);
+  const selectedColumnIdentifier = selectedOption?.value
+    ? String(selectedOption.value)
+    : '';
+  const selectedColumn = table.getColumn(selectedColumnIdentifier);
+  const tableMetadata = table.options.meta as DataTableMeta | undefined;
 
   const filterVarieties = selectedOption?.options.length
     ? ['is', 'is not']
@@ -303,14 +308,15 @@ export function MultiFilterRow<TData>({
         </SelectContent>
       </Select>
       {selectedOption?.options.length ? (
-        table.getColumn(selectedOption.value ? String(option.value) : '') && (
+        selectedColumn && (
           <DataTableFacetedFilter
             key={selectedOption.id}
-            column={table.getColumn(
-              selectedOption.value ? String(selectedOption.value) : '',
-            )}
+            column={selectedColumn}
             title={selectedOption.label}
             options={selectedOption.options}
+            optionCounts={
+              tableMetadata?.facetedOptionCounts?.[selectedColumnIdentifier]
+            }
           />
         )
       ) : (

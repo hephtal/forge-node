@@ -23,6 +23,7 @@ interface DataTableAdvancedFacetedFilterProps<TData, TValue> {
   title?: string;
   options: Option[];
   selectedValues: Set<string>;
+  optionCounts?: Record<string, number>;
   setSelectedOptions: Dispatch<
     SetStateAction<DataTableFilterOption<TData>[]>
   >;
@@ -33,6 +34,7 @@ export function DataTableAdvancedFacetedFilter<TData, TValue>({
   title,
   options,
   selectedValues,
+  optionCounts,
   setSelectedOptions,
 }: DataTableAdvancedFacetedFilterProps<TData, TValue>) {
   return (
@@ -49,6 +51,9 @@ export function DataTableAdvancedFacetedFilter<TData, TValue>({
         <CommandGroup className="px-0">
           {options.map((option) => {
             const isSelected = selectedValues.has(option.value);
+            const optionCount =
+              optionCounts?.[option.value] ??
+              column?.getFacetedUniqueValues()?.get(option.value);
 
             return (
               <CommandItem
@@ -92,12 +97,11 @@ export function DataTableAdvancedFacetedFilter<TData, TValue>({
                   />
                 )}
                 <span>{option.label}</span>
-                {option.withCount &&
-                  column?.getFacetedUniqueValues()?.get(option.value) && (
-                    <span className="ml-auto flex size-4 items-center justify-center font-mono text-xs">
-                      {column?.getFacetedUniqueValues().get(option.value)}
-                    </span>
-                  )}
+                {option.withCount && optionCount ? (
+                  <span className="ml-auto flex size-4 items-center justify-center font-mono text-xs">
+                    {optionCount}
+                  </span>
+                ) : null}
               </CommandItem>
             );
           })}

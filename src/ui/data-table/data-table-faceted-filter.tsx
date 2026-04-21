@@ -26,12 +26,14 @@ interface DataTableFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>;
   title?: string;
   options: Option[];
+  optionCounts?: Record<string, number>;
 }
 
 export function DataTableFacetedFilter<TData, TValue>({
   column,
   title,
   options,
+  optionCounts,
 }: DataTableFacetedFilterProps<TData, TValue>) {
   const selectedValues = new Set(column?.getFilterValue() as string[]);
 
@@ -84,6 +86,9 @@ export function DataTableFacetedFilter<TData, TValue>({
             <CommandGroup>
               {options.map((option) => {
                 const isSelected = selectedValues.has(option.value);
+                const optionCount =
+                  optionCounts?.[option.value] ??
+                  column?.getFacetedUniqueValues()?.get(option.value);
 
                 return (
                   <CommandItem
@@ -117,12 +122,11 @@ export function DataTableFacetedFilter<TData, TValue>({
                       />
                     )}
                     <span>{option.label}</span>
-                    {option.withCount &&
-                      column?.getFacetedUniqueValues()?.get(option.value) && (
-                        <span className="ml-auto flex size-4 items-center justify-center font-mono text-xs">
-                          {column?.getFacetedUniqueValues().get(option.value)}
-                        </span>
-                      )}
+                    {option.withCount && optionCount ? (
+                      <span className="ml-auto flex size-4 items-center justify-center font-mono text-xs">
+                        {optionCount}
+                      </span>
+                    ) : null}
                   </CommandItem>
                 );
               })}
