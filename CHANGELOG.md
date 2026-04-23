@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.5](https://github.com/hephtal/forge-node/compare/v1.6.4...v1.6.5) (2026-04-23)
+
+
+### Bug Fixes
+
+* skeleton height bug ([#31](https://github.com/hephtal/forge-node/issues/31)) ([afa3be0](https://github.com/hephtal/forge-node/commit/afa3be09d51d3c6076ee293d34d34a16206f37a1))
+
 ## [1.6.4](https://github.com/hephtal/forge-node/compare/v1.6.3...v1.6.4) (2026-04-21)
 
 
