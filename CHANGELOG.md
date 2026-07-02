@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/hephtal/forge-node/compare/v1.9.0...v1.9.1) (2026-07-02)
+
+
+### Bug Fixes
+
+* unneccesary lucide versioning ([d43153b](https://github.com/hephtal/forge-node/commit/d43153beeed11914ef9d8d378259d8cb6e36a960))
+
 ## [1.9.0](https://github.com/hephtal/forge-node/compare/v1.6.5...v1.9.0) (2026-07-02)
 
 
