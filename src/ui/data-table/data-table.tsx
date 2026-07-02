@@ -45,7 +45,7 @@ interface DataTableProps<TData>
 export function DataTable<TData>({
   table,
   floatingBar = null,
-  onRowClick = () => {},
+  onRowClick,
   variant = 'default',
   children,
   className,
@@ -93,8 +93,13 @@ export function DataTable<TData>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  onClick={() => onRowClick(row.original)}
-                  className={cn(rowVariants({ variant }))}
+                  onClick={
+                    onRowClick ? () => onRowClick(row.original) : undefined
+                  }
+                  className={cn(
+                    rowVariants({ variant }),
+                    onRowClick ? 'cursor-pointer' : undefined,
+                  )}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell

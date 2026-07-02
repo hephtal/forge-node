@@ -1,16 +1,64 @@
 {
   "name": "@hephtal/forge",
-  "version": "1.6.5",
+  "version": "1.9.0",
   "description": "HephTal frontend node package to store any heavily reused components across projects",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "sideEffects": false,
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./core": {
+      "types": "./dist/core.d.ts",
+      "import": "./dist/core.mjs",
+      "require": "./dist/core.cjs"
+    },
+    "./form": {
+      "types": "./dist/form.d.ts",
+      "import": "./dist/form.mjs",
+      "require": "./dist/form.cjs"
+    },
+    "./overlay": {
+      "types": "./dist/overlay.d.ts",
+      "import": "./dist/overlay.mjs",
+      "require": "./dist/overlay.cjs"
+    },
+    "./navigation": {
+      "types": "./dist/navigation.d.ts",
+      "import": "./dist/navigation.mjs",
+      "require": "./dist/navigation.cjs"
+    },
+    "./chart": {
+      "types": "./dist/chart.d.ts",
+      "import": "./dist/chart.mjs",
+      "require": "./dist/chart.cjs"
+    },
+    "./data-table": {
+      "types": "./dist/data-table.d.ts",
+      "import": "./dist/data-table.mjs",
+      "require": "./dist/data-table.cjs"
+    },
+    "./auto-form": {
+      "types": "./dist/auto-form.d.ts",
+      "import": "./dist/auto-form.mjs",
+      "require": "./dist/auto-form.cjs"
+    },
+    "./hooks": {
+      "types": "./dist/hooks.d.ts",
+      "import": "./dist/hooks.mjs",
+      "require": "./dist/hooks.cjs"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
+    "build": "tsup",
     "prepublishOnly": "npm run build",
     "release": "release-please release-pr --repo-url=https://github.com/hephtal/forge-node",
     "release_tag:gh": "release-please github-release --repo-url=https://github.com/hephtal/forge-node",
@@ -33,16 +81,22 @@
     "@types/node": "^22.14.0",
     "@types/react": "^18.2.7",
     "@types/react-dom": "^18.2.4",
+    "next": "^15.2.4",
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.3.0",
     "release-please": "^17.0.0",
+    "tsup": "^8.4.0",
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
+    "next": ">=13.0.0",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
   "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    },
     "react": {
       "optional": false
     },
@@ -78,7 +132,6 @@
     "d3": "^7.9.0",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.487.0",
-    "next": "^15.2.4",
     "react-day-picker": "^9.6.5",
     "react-hook-form": "^7.55.0",
     "recharts": "^2.15.2",
