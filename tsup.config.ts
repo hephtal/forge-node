@@ -13,6 +13,11 @@ export default defineConfig({
     hooks: 'src/hooks/index.ts',
   },
   format: ['cjs', 'esm'],
+  outExtension({ format }) {
+    return {
+      js: format === 'cjs' ? '.cjs' : '.mjs',
+    };
+  },
   dts: true,
   sourcemap: true,
   clean: true,

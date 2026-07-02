@@ -15,16 +15,18 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  type PaginationState, RowSelectionState,
+  type ColumnPinningState,
+  type PaginationState,
+  type RowSelectionState,
   type SortingState,
-  type TableOptions, TableState,
+  type TableOptions,
+  type TableState,
   useReactTable,
   type VisibilityState,
 } from '@tanstack/react-table';
 import * as React from 'react';
 import { useState } from 'react';
 import { z } from 'zod';
-import { ColumnPinningState } from '@tanstack/table-core/src/features/ColumnPinning';
 
 function getFacetedOptionCounts<TData>(
   dataRows: TData[],
