@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.9.0](https://github.com/hephtal/forge-node/compare/v1.6.5...v1.9.0) (2026-07-02)
+
+
+### Features
+
+* consolidate package ([#33](https://github.com/hephtal/forge-node/issues/33)) ([5602011](https://github.com/hephtal/forge-node/commit/5602011431a08a7aacc04b7c5c74ce886c97ae94))
+
+
+### Miscellaneous Chores
+
+* release 1.9.0 ([b45beab](https://github.com/hephtal/forge-node/commit/b45beab557312f8981d3a1df52bba095e7e4078c))
+
 ## [1.6.5](https://github.com/hephtal/forge-node/compare/v1.6.4...v1.6.5) (2026-04-23)
 
 
